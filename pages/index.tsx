@@ -26,8 +26,8 @@ const HomePage: NextPage<Props> = ({ searchResults, query }) => {
   return (
     <MainLayout title={ `Buscar Hoteles | ${ totalResults } results` } description='Encuentra aquí tus hoteles al mejor precio del mercado!' >
 
-      <Typography sx={{ display: `${ totalResults ? 'flex' : 'none'}`}} variant='subtitle1'>{ totalResults } resultados</Typography>
-      <Typography sx={{ display: `${ destination ? 'flex' : 'none'}`}} marginBottom={ 1 } variant='body1'>{ destination }</Typography>
+      <Typography variant='subtitle1'>{ totalResults } resultados</Typography>
+      <Typography marginBottom={ 1 } variant='body1'>{ destination ? destination : 'No se encontro destino' }</Typography>
 
       {
         results.length > 0
@@ -40,7 +40,7 @@ const HomePage: NextPage<Props> = ({ searchResults, query }) => {
               }
             </Grid>
         ) : (
-          <Typography variant='h2'>Error en la solicitud, por favor revise los parámetros</Typography>
+          <Typography variant='h2'>No se encontraron resultados, por favor revise los parámetros</Typography>
         )
       }
     
