@@ -5,7 +5,7 @@ import { Grid, Typography } from '@mui/material';
 import { MainLayout, HotelCard } from '../components';
 import { CustomResponse, IQuerySearch } from '../interfaces';
 import { date } from '../utils';
-import { apiHotel } from '../api';
+import { getHotels } from '../api';
 
 
 
@@ -17,24 +17,33 @@ interface Props {
 
 const HomePage: NextPage<Props> = ({ searchResults, query }) => {
 
-  const { destination, results, totalResults } = searchResults;
+  const { destination, results, totalResults, error } = searchResults;
   const { checkIn, checkOut } = query
   const stayDays = date.getDateDifference( checkIn, checkOut )
+
+
  
   return (
     <MainLayout title={ `Buscar Hoteles | ${ totalResults } results` } description='Encuentra aquí tus hoteles al mejor precio del mercado!' >
 
-      <Typography variant='subtitle1'>{ totalResults } resultados</Typography>
-      <Typography marginBottom={ 1 } variant='body1'>{ destination }</Typography>
-      
-      <Grid container spacing={ 3 }>
-        {
-           results.map( hotel => (
-                <HotelCard key={ hotel.id } hotel={ hotel } stayDays={ stayDays } />
-            ))
-        }
-      </Grid>
-       
+      <Typography sx={{ display: `${ totalResults ? 'flex' : 'none'}`}} variant='subtitle1'>{ totalResults } resultados</Typography>
+      <Typography sx={{ display: `${ destination ? 'flex' : 'none'}`}} marginBottom={ 1 } variant='body1'>{ destination }</Typography>
+
+      {
+        !error
+        ? (
+            <Grid container spacing={ 3 }>
+              {
+                results.map( hotel => (
+                      <HotelCard key={ hotel.id } hotel={ hotel } stayDays={ stayDays } />
+                  ))
+              }
+            </Grid>
+        ) : (
+          <Typography variant='h2'>Error en la solicitud, por favor revise los parámetros</Typography>
+        )
+      }
+    
     </MainLayout>
   )
 }
@@ -45,7 +54,7 @@ const HomePage: NextPage<Props> = ({ searchResults, query }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 
-  const searchResults = await apiHotel.getHotels( query as IQuerySearch )
+  const searchResults = await getHotels( query as IQuerySearch )
 
   return {
     props: {

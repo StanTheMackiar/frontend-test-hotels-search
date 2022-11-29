@@ -1,3 +1,4 @@
 
 
-export * as apiHotel from './getHotels'
+export * from './apiHotel'
+export * from './getHotels'

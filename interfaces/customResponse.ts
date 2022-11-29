@@ -4,11 +4,8 @@ export interface CustomResponse {
     destination: string;
     results: SearchResultsMinimized[];
     totalResults: number;
+    error?: boolean;
 }    
-
-export interface BadResponse {
-    error: string,
-}
 
 export interface SearchResultsMinimized {
     id: number,

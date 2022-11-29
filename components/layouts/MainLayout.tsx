@@ -7,7 +7,7 @@ interface Props {
     description: string,
 }
 
-export const MainLayout:FC<PropsWithChildren<Props>> = ({children, description, title}) => (
+export const MainLayout:FC<PropsWithChildren<Props>> = ({children, description = 'Buscador de hoteles', title = 'Buscar hoteles'}) => (
   
     <>
         <Head>
