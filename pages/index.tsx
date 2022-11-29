@@ -1,20 +1,40 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { Typography } from "@mui/material";
-import { MainLayout } from '../components/layouts';
+
+import { Grid, Typography } from '@mui/material';
+
+import { MainLayout, HotelCard } from '../components';
+import { CustomResponse, IQuerySearch } from '../interfaces';
+import { date } from '../utils';
+import { apiHotel } from '../api';
+
 
 
 interface Props {
-  hotels: any
+  searchResults: CustomResponse;
+  query: IQuerySearch;
 }
 
 
-const HomePage: NextPage<Props> = ({ hotels }) => {
+const HomePage: NextPage<Props> = ({ searchResults, query }) => {
 
-
-
+  const { destination, results, totalResults } = searchResults;
+  const { checkIn, checkOut } = query
+  const stayDays = date.getDateDifference( checkIn, checkOut )
+ 
   return (
-    <MainLayout title={`Showing 10 results | Hotel Search`} description='Found here the best hotels at the best price!' >
+    <MainLayout title={ `Buscar Hoteles | ${ totalResults } results` } description='Encuentra aquí tus hoteles al mejor precio del mercado!' >
 
+      <Typography variant='subtitle1'>{ totalResults } resultados</Typography>
+      <Typography marginBottom={ 1 } variant='body1'>{ destination }</Typography>
+      
+      <Grid container spacing={ 3 }>
+        {
+           results.map( hotel => (
+                <HotelCard key={ hotel.id } hotel={ hotel } stayDays={ stayDays } />
+            ))
+        }
+      </Grid>
+       
     </MainLayout>
   )
 }
@@ -23,13 +43,15 @@ const HomePage: NextPage<Props> = ({ hotels }) => {
 
 
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+
+  const searchResults = await apiHotel.getHotels( query as IQuerySearch )
 
   return {
     props: {
-      
-    }
+      searchResults,
+      query,
+    } 
   }
 }
 

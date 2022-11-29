@@ -1,3 +1,3 @@
 
 
-export { default as hotelApi } from './hotelApi'
+export * as apiHotel from './getHotels'

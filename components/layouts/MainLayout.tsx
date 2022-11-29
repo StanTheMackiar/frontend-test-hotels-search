@@ -7,29 +7,27 @@ interface Props {
     description: string,
 }
 
-export const MainLayout:FC<PropsWithChildren<Props>> = ({children, description, title}) => {
-
-
-  return (
+export const MainLayout:FC<PropsWithChildren<Props>> = ({children, description, title}) => (
+  
     <>
         <Head>
             <title>{ title }</title>
-
             <meta name="description" content={ description }/>
-
         </Head>
 
-        <nav>
-          <NavBar />
-        </nav>
+        <header>
+          <nav>
+            <NavBar />
+          </nav>
+        </header>
 
         <main style={{
             margin: '80px auto',
-            maxWidth: '1440px',
+            maxWidth: '1800px',
             padding: '0px 30px'
         }}>
             {children}
         </main>
     </>
-  )
-}
+);
+

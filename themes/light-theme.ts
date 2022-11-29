@@ -14,10 +14,10 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#F26625'
+      main: '#F2461F'
     },
     secondary: {
-      main: '#B03211 '
+      main: '#B03211'
     },
   },
   components: {
@@ -29,9 +29,16 @@ export const lightTheme = createTheme({
       },
       styleOverrides: {
         root: {
-          backgroundColor: 'white',
+          color: 'white',
           height: 60
         },
+      }
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: '5px'
+        }
       }
     },
 
@@ -39,15 +46,28 @@ export const lightTheme = createTheme({
       styleOverrides: {
         h1: {
           fontSize: 25,
-          fontWeight: 600
+          fontWeight: 600,
         },
         h2: {
+          fontSize: 22,
+          fontWeight: 600
+        },
+        h3: {
           fontSize: 20,
-          fontWeight: 400
+          fontWeight: 600,
         },
         subtitle1: {
           fontSize: 17,
           fontWeight: 600
+        },
+        subtitle2: {
+          fontSize: 15,
+          fontWeight: 600,
+          lineHeight: 1.3,
+        },
+        body2: {
+          fontSize: 12,
+          fontWeight: 400,
         }
       }
     },
@@ -74,8 +94,6 @@ export const lightTheme = createTheme({
         }
       }
     },
-
-
     MuiCard: {
       defaultProps: {
         elevation: 0
