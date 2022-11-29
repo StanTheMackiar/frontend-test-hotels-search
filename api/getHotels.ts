@@ -35,7 +35,6 @@ export const getHotels = async( params: IQuerySearch):Promise<CustomResponse> =>
     } catch (err ) {
         console.log(err);
         return {
-            error: false,
             destination: '',
             results: [],
             totalResults: 0,

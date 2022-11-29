@@ -17,7 +17,7 @@ interface Props {
 
 const HomePage: NextPage<Props> = ({ searchResults, query }) => {
 
-  const { destination, results, totalResults, error } = searchResults;
+  const { destination, results, totalResults } = searchResults;
   const { checkIn, checkOut } = query
   const stayDays = date.getDateDifference( checkIn, checkOut )
 
@@ -30,7 +30,7 @@ const HomePage: NextPage<Props> = ({ searchResults, query }) => {
       <Typography sx={{ display: `${ destination ? 'flex' : 'none'}`}} marginBottom={ 1 } variant='body1'>{ destination }</Typography>
 
       {
-        !error
+        results.length > 0
         ? (
             <Grid container spacing={ 3 }>
               {

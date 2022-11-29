@@ -4,7 +4,6 @@ export interface CustomResponse {
     destination: string;
     results: SearchResultsMinimized[];
     totalResults: number;
-    error?: boolean;
 }    
 
 export interface SearchResultsMinimized {
